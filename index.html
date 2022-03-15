@@ -10,39 +10,43 @@
 <body>
     <div class="calculator">
         <div class="screen">
-            <span id="toShow"></span>
+            <div>
+                <span id="prev-data"></span><span id="operator"></span>
+            </div>
+            <span id="current-data"></span>
         </div>
         <div class="keyboard">
             <div class="first-row">
                 <div id="delete-key">DEL</div>
-                <div id="divide-key">/</div>
+                <div id="divide-key" class="operator-btn">/</div>
             </div>
             <div class="second-row">
-                <div id="nana-key">7</div>
-                <div id="hachi-key">8</div>
-                <div id="kyuu-key">9</div>
-                <div id="multiply-key">*</div>
+                <div class="numb-btn">7</div>
+                <div class="numb-btn">8</div>
+                <div class="numb-btn">9</div>
+                <div id="multiply-key" class="operator-btn">*</div>
             </div>
             <div class="third-row">
-                <div id="shi-key">4</div>
-                <div id="go-key">5</div>
-                <div id="roku-key">6</div>
-                <div id="subtract-key">-</div>
+                <div class="numb-btn">4</div>
+                <div class="numb-btn">5</div>
+                <div class="numb-btn">6</div>
+                <div id="subtract-key" class="operator-btn">-</div>
             </div>
             <div class="fourth-row">
-                <div id="ichi-key">1</div>
-                <div id="ni-key">2</div>
-                <div id="san-key">3</div>
-                <div id="add">+</div>
+                <div class="numb-btn">1</div>
+                <div class="numb-btn">2</div>
+                <div class="numb-btn">3</div>
+                <div id="add" class="operator-btn">+</div>
             </div>
             <div class="fifth-row">
-                <div id="zero-key">0</div>
-                <div id="point-key">.</div>
+                <div class="numb-btn">0</div>
+                <div id="point-key" class="numb-btn">.</div>
                 <div id="equal-key">=</div>
             </div>
         </div>
     </div>
     <script src="./js/dom.js"></script>
-    <script src="./js/logica.js"></script>
+    <script src="./js/class/Calculator.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 </html>

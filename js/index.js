@@ -23,29 +23,76 @@ for(let i = 0; i < keyboardButtons.length; i++){
 for(let i = 0; i < operatorButtons.length; i++){
     operatorButtons[i].addEventListener('click', () => {
         // setea los valores del primer término y el operador
-        let firstParam = currentData.textContent;
-        calculadora.setFirstTerm(firstParam);
-        let actualOperator = operatorButtons[i].textContent;
-        calculadora.setOperator(actualOperator);
-        previousData.innerHTML = firstParam;
-        operatorData.innerHTML = ` ${actualOperator}`;
-        currentData.innerHTML = "";
+        // let firstParam = currentData.textContent;
+        // calculadora.setFirstTerm(firstParam);
+        // let actualOperator = operatorButtons[i].textContent;
+        // calculadora.setOperator(actualOperator);
+        // previousData.innerHTML = firstParam;
+        // operatorData.innerHTML = ` ${actualOperator}`;
+        // currentData.innerHTML = "";
+
+        if(calculadora.firstTerm === undefined){
+            //seteo de variables
+            calculadora.setFirstTerm(currentData.textContent);
+            calculadora.setOperator(operatorButtons[i].textContent);
+    
+            // qué muestro en el front?
+            firstTermData.innerHTML = calculadora.firstTerm;
+            operatorData.innerHTML = ` ${calculadora.operator} `;
+            currentData.innerHTML = '';
+        } else {
+            
+
+
+        }
     });
 }
 
 equalButton.addEventListener('click', () => {
-    // setea los valores del segundo término y ejecuta el cálculo
-    calculadora.setSecondTerm(currentData.textContent);
-    calculadora.calculate();
-    previousData.innerHTML = calculadora.result;
-    currentData.innerHTML = "";
-    operatorData.innerHTML = "";
+/*
+casos -> operador = undefined
+         operador != undefined
+         first term = undefined
+*/
+    if(calculadora.firstTerm === undefined){
+        calculadora.setFirstTerm(currentData.textContent);
+        calculadora.calculate();
+
+        firstTermData.innerHTML = calculadora.firstTerm;
+        resultData.innerHTML = ` = ${calculadora.result}`;
+
+
+    } else {
+        if(calculadora.secondTerm === undefined){
+            // seteo variables
+            calculadora.setSecondTerm(currentData.textContent);
+            calculadora.calculate();
+    
+            // muestro en el front
+            secondTermData.innerHTML = currentData.textContent;
+            resultData.innerHTML = ` = ${calculadora.result}`;
+            currentData.innerHTML = '';
+        } else {
+            toSetOperator = undefined;
+            calculadora.calculate();
+
+            firstTermData.innerHTML = calculadora.firstTerm;
+            resultData.innerHTML = ` = ${calculadora.result}`;
+        }
+    }
+
 });
 
 deleteButton.addEventListener('click', () => {
     // resetea los valores del html y la calculadora
-    currentData.innerHTML = "";
-    previousData.innerHTML = "";
-    operatorData.innerHTML = "";
+    firstTermData.innerHTML = '';
+    operatorData.innerHTML = '';
+    secondTermData.innerHTML = '';
+    resultData.innerHTML = '';
+    currentData.innerHTML = '';
+
+    toSetParam1 = undefined;
+    toSetParam2 = undefined;
+    toSetOperator = undefined;
     calculadora.clearAll();
 });

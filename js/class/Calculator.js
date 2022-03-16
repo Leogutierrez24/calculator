@@ -23,11 +23,7 @@ class Calculator{
     }
 
     setOperator(value){
-        if(this.operator !== undefined){
-            
-        } else {
-            this.operator = value;
-        }
+        this.operator = value;
     }
 
     calculate(){
@@ -43,6 +39,9 @@ class Calculator{
                 break;
             case '*':
                 this.result = this.firstTerm * this.secondTerm;
+                break;
+            case undefined:
+                this.result = this.firstTerm;
                 break;
             default:
                 console.log('Something is wrong!!');

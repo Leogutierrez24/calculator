@@ -1,7 +1,9 @@
 // screen elements
-const previousData = document.getElementById('prev-data');
-const currentData = document.getElementById('current-data');
+const firstTermData = document.getElementById('firstTerm');
+const secondTermData = document.getElementById('secondTerm');
 const operatorData = document.getElementById('operator');
+const resultData = document.getElementById('result');
+const currentData = document.getElementById('current-data');
 
 // keyboard buttons
 const keyboardButtons = document.getElementsByClassName('numb-btn');

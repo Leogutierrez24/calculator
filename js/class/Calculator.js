@@ -48,6 +48,12 @@ class Calculator{
         }
     }
 
+    keepWorking(){
+        this.firstTerm = this.result;
+        this.secondTerm = undefined;
+        this.result = undefined;
+    }
+
     clearAll(){
         this.firstTerm = undefined;
         this.secondTerm = undefined;

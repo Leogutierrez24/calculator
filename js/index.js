@@ -22,15 +22,6 @@ for(let i = 0; i < keyboardButtons.length; i++){
 
 for(let i = 0; i < operatorButtons.length; i++){
     operatorButtons[i].addEventListener('click', () => {
-        // setea los valores del primer término y el operador
-        // let firstParam = currentData.textContent;
-        // calculadora.setFirstTerm(firstParam);
-        // let actualOperator = operatorButtons[i].textContent;
-        // calculadora.setOperator(actualOperator);
-        // previousData.innerHTML = firstParam;
-        // operatorData.innerHTML = ` ${actualOperator}`;
-        // currentData.innerHTML = "";
-
         if(calculadora.firstTerm === undefined){
             //seteo de variables
             calculadora.setFirstTerm(currentData.textContent);
@@ -40,10 +31,16 @@ for(let i = 0; i < operatorButtons.length; i++){
             firstTermData.innerHTML = calculadora.firstTerm;
             operatorData.innerHTML = ` ${calculadora.operator} `;
             currentData.innerHTML = '';
+
         } else {
-            
+            calculadora.setSecondTerm(currentData.textContent);
+            calculadora.calculate();
+            calculadora.keepWorking();
+            calculadora.setOperator(operatorButtons[i].textContent);
 
-
+            firstTermData.innerHTML = calculadora.firstTerm;
+            operatorData.innerHTML = calculadora.operator;
+            currentData.innerHTML = '';
         }
     });
 }
@@ -90,9 +87,5 @@ deleteButton.addEventListener('click', () => {
     secondTermData.innerHTML = '';
     resultData.innerHTML = '';
     currentData.innerHTML = '';
-
-    toSetParam1 = undefined;
-    toSetParam2 = undefined;
-    toSetOperator = undefined;
     calculadora.clearAll();
 });

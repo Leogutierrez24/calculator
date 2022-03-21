@@ -51,6 +51,7 @@ class Calculator{
     keepWorking(){
         this.firstTerm = this.result;
         this.secondTerm = undefined;
+        this.operator = undefined;
         this.result = undefined;
     }
 
@@ -60,5 +61,4 @@ class Calculator{
         this.operator = undefined;
         this.result = undefined;
     }
-
-};
+}

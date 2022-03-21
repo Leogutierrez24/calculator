@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .calculator {
@@ -9,8 +12,9 @@
     height: 300px;
     margin: 50px auto;
     padding: 20px;
-    background: #232323;
+    background: #E4E4E4;
     border-radius: 3px;
+    box-shadow: 0px 3px 4px 1px #a4a2a2;
 }
 
 .screen {
@@ -18,8 +22,9 @@
     height: 60px;
     padding: 3px;
     margin-bottom: 15px;
-    background: #d7d7d7;
+    background: #a6a6a6;
     border-radius: 5px;
+    font-weight: bold;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -45,18 +50,26 @@
 
 .second-row > div, .third-row > div, .fourth-row > div, .fifth-row > div {
     width: 60px;
-    height: 20px;
-    background: #1375e2;
     text-align: center;
     border-radius: 3px;
 }
 
 .first-row > div, .second-row > div, .third-row > div, .fourth-row > div, .fifth-row > div {
     cursor: pointer;
+    height: 23px;
+    border: 1px solid #b3b3b3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #equal-key {
     width: 120px;
+    background-color: #77788E;
+}
+
+#equal-key:active {
+    background-color: #979797;
 }
 
 #delete-key {
@@ -64,15 +77,30 @@
     background: #ff5757;
     text-align: center;
     border-radius: 3px;
+    font-weight: bold;
+}
+
+#delete-key:active {
+    background-color: #fe8282;
 }
 
 #divide-key {
     width: 120px;
-    background: #1375e2;
-    text-align: center;
     border-radius: 3px;
 }
 
 #current-data {
     font-size: 1.5rem;
+}
+
+.operator-btn {
+    background-color: #77788E;
+}
+
+.numb-btn {
+    background-color: #B9BAC3;
+}
+
+.first-row > div:active, .second-row > div:active, .third-row > div:active, .fourth-row > div:active, .fifth-row > div:active {
+    background: #979797;
 }

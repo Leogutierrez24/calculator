@@ -33,51 +33,56 @@ for(let i = 0; i < operatorButtons.length; i++){
             currentData.innerHTML = '';
 
         } else {
-            calculadora.setSecondTerm(currentData.textContent);
-            calculadora.calculate();
-            calculadora.keepWorking();
-            calculadora.setOperator(operatorButtons[i].textContent);
+            if(calculadora.secondTerm === undefined){
+                // borro por si ya hay un resultado anterior
+                resultData.innerHTML = '';
 
-            firstTermData.innerHTML = calculadora.firstTerm;
-            operatorData.innerHTML = calculadora.operator;
-            currentData.innerHTML = '';
+                calculadora.setSecondTerm(currentData.textContent);
+                calculadora.calculate();
+                calculadora.keepWorking();
+                calculadora.setOperator(operatorButtons[i].textContent);
+    
+                firstTermData.innerHTML = calculadora.firstTerm;
+                operatorData.innerHTML = calculadora.operator;
+                currentData.innerHTML = '';
+            } else {
+                calculadora.keepWorking();
+                calculadora.setOperator(operatorButtons[i].textContent);
+
+                firstTermData.innerHTML = calculadora.firstTerm;
+                operatorData.innerHTML = calculadora.operator;
+                secondTermData.innerHTML = '';
+                resultData.innerHTML = '';
+            }
         }
     });
 }
 
 equalButton.addEventListener('click', () => {
-/*
-casos -> operador = undefined
-         operador != undefined
-         first term = undefined
-*/
-    if(calculadora.firstTerm === undefined){
-        calculadora.setFirstTerm(currentData.textContent);
-        calculadora.calculate();
-
-        firstTermData.innerHTML = calculadora.firstTerm;
-        resultData.innerHTML = ` = ${calculadora.result}`;
-
-
-    } else {
-        if(calculadora.secondTerm === undefined){
-            // seteo variables
-            calculadora.setSecondTerm(currentData.textContent);
+    if(calculadora.result === undefined){
+        if(calculadora.firstTerm === undefined){
+            calculadora.setFirstTerm(currentData.textContent);
             calculadora.calculate();
     
-            // muestro en el front
-            secondTermData.innerHTML = currentData.textContent;
-            resultData.innerHTML = ` = ${calculadora.result}`;
-            currentData.innerHTML = '';
-        } else {
-            toSetOperator = undefined;
-            calculadora.calculate();
-
             firstTermData.innerHTML = calculadora.firstTerm;
             resultData.innerHTML = ` = ${calculadora.result}`;
+    
+        } else {
+            if(calculadora.secondTerm === undefined){
+                // seteo variables
+                calculadora.setSecondTerm(currentData.textContent);
+                calculadora.calculate();
+        
+                // muestro en el front
+                secondTermData.innerHTML = calculadora.secondTerm;
+                resultData.innerHTML = ` = ${calculadora.result}`;
+                currentData.innerHTML = '';
+            }
         }
+    } else {
+        firstTermData.innerHTML = calculadora.firstTerm;
+        resultData.innerHTML = ` = ${calculadora.result}`;
     }
-
 });
 
 deleteButton.addEventListener('click', () => {

@@ -36,12 +36,13 @@ class Calculator{
                 break;
             case '/':
                 this.result = Number(parseFloat(this.firstTerm / this.secondTerm).toFixed(2));
+                this.checkResult();
                 break;
             case '*':
                 this.result = Number(parseFloat(this.firstTerm * this.secondTerm).toFixed(2));
                 break;
             case undefined:
-                this.result = Number(parseFloat(this.firstTerm).toFixed(2))
+                this.result = Number(parseFloat(this.firstTerm).toFixed(2));
                 break;
             default:
                 console.log('Something is wrong!!');
@@ -53,6 +54,12 @@ class Calculator{
         this.secondTerm = undefined;
         this.operator = undefined;
         this.result = undefined;
+    }
+
+    checkResult(){
+        if(this.result === NaN || this.result === Infinity){
+            this.result = 'ERROR';
+        }
     }
 
     clearAll(){

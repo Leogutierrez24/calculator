@@ -10,7 +10,7 @@ class Calculator{
         if(x == '0' || x == ''){
             this.firstTerm = 0;
         } else {
-            this.firstTerm = parseInt(x);
+            this.firstTerm = Number(parseFloat(x).toFixed(2));
         }
     }
 
@@ -18,7 +18,7 @@ class Calculator{
         if(y == '0' || y == ''){
             this.secondTerm = 0;
         } else {
-            this.secondTerm = parseInt(y);
+            this.secondTerm = Number(parseFloat(y).toFixed(2));
         }
     }
 
@@ -29,22 +29,36 @@ class Calculator{
     calculate(){
         switch(this.operator){
             case '+':
-                this.result = this.firstTerm + this.secondTerm;
+                this.result = Number(parseFloat(this.firstTerm + this.secondTerm).toFixed(2));
                 break;
             case '-':
-                this.result = this.firstTerm - this.secondTerm;
+                this.result = Number(parseFloat(this.firstTerm - this.secondTerm).toFixed(2));
                 break;
             case '/':
-                this.result = this.firstTerm / this.secondTerm;
+                this.result = Number(parseFloat(this.firstTerm / this.secondTerm).toFixed(2));
+                this.checkResult();
                 break;
             case '*':
-                this.result = this.firstTerm * this.secondTerm;
+                this.result = Number(parseFloat(this.firstTerm * this.secondTerm).toFixed(2));
                 break;
             case undefined:
-                this.result = this.firstTerm;
+                this.result = Number(parseFloat(this.firstTerm).toFixed(2));
                 break;
             default:
                 console.log('Something is wrong!!');
+        }
+    }
+
+    keepWorking(){
+        this.firstTerm = this.result;
+        this.secondTerm = undefined;
+        this.operator = undefined;
+        this.result = undefined;
+    }
+
+    checkResult(){
+        if(this.result !== this.result || this.result === Infinity){
+            this.result = 'ERROR';
         }
     }
 
@@ -54,5 +68,4 @@ class Calculator{
         this.operator = undefined;
         this.result = undefined;
     }
-
-};
+}

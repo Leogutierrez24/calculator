@@ -12,6 +12,15 @@
 
 const calculadora = new Calculator();
 
+const resetAll = () => {
+    firstTermData.innerHTML = '';
+    operatorData.innerHTML = '';
+    secondTermData.innerHTML = '';
+    resultData.innerHTML = '';
+    currentData.innerHTML = '';
+    calculadora.clearAll();
+};
+
 for(let i = 0; i < keyboardButtons.length; i++){
     keyboardButtons[i].addEventListener('click', () => {
         let prevNumb = currentData.textContent;
@@ -22,15 +31,6 @@ for(let i = 0; i < keyboardButtons.length; i++){
 
 for(let i = 0; i < operatorButtons.length; i++){
     operatorButtons[i].addEventListener('click', () => {
-        // setea los valores del primer término y el operador
-        // let firstParam = currentData.textContent;
-        // calculadora.setFirstTerm(firstParam);
-        // let actualOperator = operatorButtons[i].textContent;
-        // calculadora.setOperator(actualOperator);
-        // previousData.innerHTML = firstParam;
-        // operatorData.innerHTML = ` ${actualOperator}`;
-        // currentData.innerHTML = "";
-
         if(calculadora.firstTerm === undefined){
             //seteo de variables
             calculadora.setFirstTerm(currentData.textContent);
@@ -40,59 +40,80 @@ for(let i = 0; i < operatorButtons.length; i++){
             firstTermData.innerHTML = calculadora.firstTerm;
             operatorData.innerHTML = ` ${calculadora.operator} `;
             currentData.innerHTML = '';
+
         } else {
-            
+            if(calculadora.secondTerm === undefined){
+                // borro por si ya hay un resultado anterior
+                resultData.innerHTML = '';
 
+                calculadora.setSecondTerm(currentData.textContent);
+                calculadora.calculate();
+                calculadora.checkResult();
+                // verifico el resultado por si es NaN o infinito
+                if(calculadora.result === 'ERROR'){
+                    // reseteo todo
+                    firstTermData.innerHTML = '';
+                    operatorData.innerHTML = '';
+                    resultData.innerHTML = calculadora.result;
+                    setTimeout(() => {
+                        resetAll();
+                    }, 1000);
+                } else {
+                    // sigo operando
+                    calculadora.keepWorking();
+                    calculadora.setOperator(operatorButtons[i].textContent);
+        
+                    firstTermData.innerHTML = calculadora.firstTerm;
+                    operatorData.innerHTML = calculadora.operator;
+                    currentData.innerHTML = '';
+                }
+            } else {
+                calculadora.keepWorking();
+                calculadora.setOperator(operatorButtons[i].textContent);
 
+                firstTermData.innerHTML = calculadora.firstTerm;
+                operatorData.innerHTML = calculadora.operator;
+                secondTermData.innerHTML = '';
+                resultData.innerHTML = '';
+            }
         }
     });
 }
 
 equalButton.addEventListener('click', () => {
-/*
-casos -> operador = undefined
-         operador != undefined
-         first term = undefined
-*/
-    if(calculadora.firstTerm === undefined){
-        calculadora.setFirstTerm(currentData.textContent);
-        calculadora.calculate();
-
-        firstTermData.innerHTML = calculadora.firstTerm;
-        resultData.innerHTML = ` = ${calculadora.result}`;
-
-
-    } else {
-        if(calculadora.secondTerm === undefined){
-            // seteo variables
-            calculadora.setSecondTerm(currentData.textContent);
+    if(calculadora.result === undefined){
+        if(calculadora.firstTerm === undefined){
+            calculadora.setFirstTerm(currentData.textContent);
             calculadora.calculate();
     
-            // muestro en el front
-            secondTermData.innerHTML = currentData.textContent;
-            resultData.innerHTML = ` = ${calculadora.result}`;
-            currentData.innerHTML = '';
-        } else {
-            toSetOperator = undefined;
-            calculadora.calculate();
-
             firstTermData.innerHTML = calculadora.firstTerm;
             resultData.innerHTML = ` = ${calculadora.result}`;
+        } else {
+            if(calculadora.secondTerm === undefined){
+                // seteo variables
+                calculadora.setSecondTerm(currentData.textContent);
+                calculadora.calculate();
+                // verifico si el resultado es NaN o infinito
+                if(calculadora.result === 'ERROR'){
+                    // reseteo todo
+                    firstTermData.innerHTML = '';
+                    operatorData.innerHTML = '';
+                    resultData.innerHTML = calculadora.result;
+                    setTimeout(() => {
+                        resetAll();
+                    }, 1000);
+                } else {
+                    // finalizo operación correctamente
+                    secondTermData.innerHTML = calculadora.secondTerm;
+                    resultData.innerHTML = ` = ${calculadora.result}`;
+                    currentData.innerHTML = '';
+                }
+            }
         }
+    } else {
+        firstTermData.innerHTML = calculadora.firstTerm;
+        resultData.innerHTML = ` = ${calculadora.result}`;
     }
-
 });
 
-deleteButton.addEventListener('click', () => {
-    // resetea los valores del html y la calculadora
-    firstTermData.innerHTML = '';
-    operatorData.innerHTML = '';
-    secondTermData.innerHTML = '';
-    resultData.innerHTML = '';
-    currentData.innerHTML = '';
-
-    toSetParam1 = undefined;
-    toSetParam2 = undefined;
-    toSetOperator = undefined;
-    calculadora.clearAll();
-});
+deleteButton.addEventListener('click', resetAll);

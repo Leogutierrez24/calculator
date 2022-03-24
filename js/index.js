@@ -12,6 +12,15 @@
 
 const calculadora = new Calculator();
 
+const resetAll = () => {
+    firstTermData.innerHTML = '';
+    operatorData.innerHTML = '';
+    secondTermData.innerHTML = '';
+    resultData.innerHTML = '';
+    currentData.innerHTML = '';
+    calculadora.clearAll();
+};
+
 for(let i = 0; i < keyboardButtons.length; i++){
     keyboardButtons[i].addEventListener('click', () => {
         let prevNumb = currentData.textContent;
@@ -39,12 +48,25 @@ for(let i = 0; i < operatorButtons.length; i++){
 
                 calculadora.setSecondTerm(currentData.textContent);
                 calculadora.calculate();
-                calculadora.keepWorking();
-                calculadora.setOperator(operatorButtons[i].textContent);
-    
-                firstTermData.innerHTML = calculadora.firstTerm;
-                operatorData.innerHTML = calculadora.operator;
-                currentData.innerHTML = '';
+                calculadora.checkResult();
+                // verifico el resultado por si es NaN o infinito
+                if(calculadora.result === 'ERROR'){
+                    // reseteo todo
+                    firstTermData.innerHTML = '';
+                    operatorData.innerHTML = '';
+                    resultData.innerHTML = calculadora.result;
+                    setTimeout(() => {
+                        resetAll();
+                    }, 1000);
+                } else {
+                    // sigo operando
+                    calculadora.keepWorking();
+                    calculadora.setOperator(operatorButtons[i].textContent);
+        
+                    firstTermData.innerHTML = calculadora.firstTerm;
+                    operatorData.innerHTML = calculadora.operator;
+                    currentData.innerHTML = '';
+                }
             } else {
                 calculadora.keepWorking();
                 calculadora.setOperator(operatorButtons[i].textContent);
@@ -66,17 +88,26 @@ equalButton.addEventListener('click', () => {
     
             firstTermData.innerHTML = calculadora.firstTerm;
             resultData.innerHTML = ` = ${calculadora.result}`;
-    
         } else {
             if(calculadora.secondTerm === undefined){
                 // seteo variables
                 calculadora.setSecondTerm(currentData.textContent);
                 calculadora.calculate();
-        
-                // muestro en el front
-                secondTermData.innerHTML = calculadora.secondTerm;
-                resultData.innerHTML = ` = ${calculadora.result}`;
-                currentData.innerHTML = '';
+                // verifico si el resultado es NaN o infinito
+                if(calculadora.result === 'ERROR'){
+                    // reseteo todo
+                    firstTermData.innerHTML = '';
+                    operatorData.innerHTML = '';
+                    resultData.innerHTML = calculadora.result;
+                    setTimeout(() => {
+                        resetAll();
+                    }, 1000);
+                } else {
+                    // finalizo operación correctamente
+                    secondTermData.innerHTML = calculadora.secondTerm;
+                    resultData.innerHTML = ` = ${calculadora.result}`;
+                    currentData.innerHTML = '';
+                }
             }
         }
     } else {
@@ -85,12 +116,4 @@ equalButton.addEventListener('click', () => {
     }
 });
 
-deleteButton.addEventListener('click', () => {
-    // resetea los valores del html y la calculadora
-    firstTermData.innerHTML = '';
-    operatorData.innerHTML = '';
-    secondTermData.innerHTML = '';
-    resultData.innerHTML = '';
-    currentData.innerHTML = '';
-    calculadora.clearAll();
-});
+deleteButton.addEventListener('click', resetAll);

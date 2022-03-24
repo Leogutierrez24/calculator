@@ -57,7 +57,7 @@ class Calculator{
     }
 
     checkResult(){
-        if(this.result === NaN || this.result === Infinity){
+        if(this.result !== this.result || this.result === Infinity){
             this.result = 'ERROR';
         }
     }

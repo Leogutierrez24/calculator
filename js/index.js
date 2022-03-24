@@ -1,15 +1,3 @@
-/* Cambios a modificar -> 
-    3/15
-    1) Hay que modificar el seteo del primer término y el operador
-    para que se pueda seguir sumando más de una vez. Por ejemplo:
-    25 + 3 (oprimo para restar) -> 28 - 2 
-
-    2) Cambiar el resultado de números divididos por 0 y parsear para no
-    trabajar con no más de 2 decimales.
-
-    3) Mejorar un poco el front en lo posible.
-*/
-
 const calculadora = new Calculator();
 
 const resetAll = () => {
@@ -32,26 +20,20 @@ for(let i = 0; i < keyboardButtons.length; i++){
 for(let i = 0; i < operatorButtons.length; i++){
     operatorButtons[i].addEventListener('click', () => {
         if(calculadora.firstTerm === undefined){
-            //seteo de variables
             calculadora.setFirstTerm(currentData.textContent);
             calculadora.setOperator(operatorButtons[i].textContent);
     
-            // qué muestro en el front?
             firstTermData.innerHTML = calculadora.firstTerm;
             operatorData.innerHTML = ` ${calculadora.operator} `;
             currentData.innerHTML = '';
-
         } else {
             if(calculadora.secondTerm === undefined){
-                // borro por si ya hay un resultado anterior
                 resultData.innerHTML = '';
 
                 calculadora.setSecondTerm(currentData.textContent);
                 calculadora.calculate();
                 calculadora.checkResult();
-                // verifico el resultado por si es NaN o infinito
                 if(calculadora.result === 'ERROR'){
-                    // reseteo todo
                     firstTermData.innerHTML = '';
                     operatorData.innerHTML = '';
                     resultData.innerHTML = calculadora.result;
@@ -59,7 +41,6 @@ for(let i = 0; i < operatorButtons.length; i++){
                         resetAll();
                     }, 1000);
                 } else {
-                    // sigo operando
                     calculadora.keepWorking();
                     calculadora.setOperator(operatorButtons[i].textContent);
         
@@ -90,12 +71,9 @@ equalButton.addEventListener('click', () => {
             resultData.innerHTML = ` = ${calculadora.result}`;
         } else {
             if(calculadora.secondTerm === undefined){
-                // seteo variables
                 calculadora.setSecondTerm(currentData.textContent);
                 calculadora.calculate();
-                // verifico si el resultado es NaN o infinito
                 if(calculadora.result === 'ERROR'){
-                    // reseteo todo
                     firstTermData.innerHTML = '';
                     operatorData.innerHTML = '';
                     resultData.innerHTML = calculadora.result;
@@ -103,7 +81,6 @@ equalButton.addEventListener('click', () => {
                         resetAll();
                     }, 1000);
                 } else {
-                    // finalizo operación correctamente
                     secondTermData.innerHTML = calculadora.secondTerm;
                     resultData.innerHTML = ` = ${calculadora.result}`;
                     currentData.innerHTML = '';

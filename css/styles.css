@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap');
 
 * {
     margin: 0;
@@ -9,12 +10,18 @@
 
 .calculator {
     width: 290px;
-    height: 300px;
+    height: fit-content;
     margin: 50px auto;
-    padding: 20px;
-    background: #E4E4E4;
-    border-radius: 3px;
+    padding: 5px;
+    background: #ffe008;
+    border-radius: 20px;
     box-shadow: 0px 3px 4px 1px #a4a2a2;
+}
+
+.inside-border {
+    padding: 15px;
+    border: 2px solid #00000030;
+    border-radius: 20px;
 }
 
 .screen {
@@ -25,6 +32,7 @@
     background: #a6a6a6;
     border-radius: 5px;
     font-weight: bold;
+    box-shadow: inset 0 0 4px 1px #707070;
     overflow: hidden;
     display: flex;
     justify-content: flex-end;
@@ -38,27 +46,40 @@
 
 .keyboard {
     width: 100%;
-    color: #fff;
+    height: fit-content;
+    color: #B9BAC3;
+    font-weight: bold;
 }
 
 .first-row, .second-row, .third-row, .fourth-row, .fifth-row {
     width: 100%;
-    height: 30px;
+    /* height: 30px; */
+    margin-bottom: 7px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .second-row > div, .third-row > div, .fourth-row > div, .fifth-row > div {
-    width: 60px;
+    width: 50px;
     text-align: center;
     border-radius: 3px;
 }
 
-.first-row > div, .second-row > div, .third-row > div, .fourth-row > div, .fifth-row > div {
+.first-row > div {
     cursor: pointer;
-    height: 23px;
-    border: 1px solid #b3b3b3;
+    height: 25px;
+    border: 1px solid #b3b3b352;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.second-row > div, .third-row > div, .fourth-row > div, .fifth-row > div {
+    cursor: pointer;
+    height: 50px;
+    border: 1px solid #b3b3b352;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,7 +87,8 @@
 
 #equal-key {
     width: 120px;
-    background-color: #77788E;
+    border-radius: 25px;
+    background-color: #f3f3f3;
 }
 
 #equal-key:active {
@@ -75,9 +97,13 @@
 
 #delete-key {
     width: 120px;
-    background: #ff5757;
+    background: #FF7731;
     text-align: center;
-    border-radius: 3px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    color: #000;
     font-weight: bold;
 }
 
@@ -87,7 +113,10 @@
 
 #divide-key {
     width: 120px;
-    border-radius: 3px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
 }
 
 #current-data {
@@ -95,13 +124,19 @@
 }
 
 .operator-btn {
-    background-color: #77788E;
+    background-color: #f3f3f3;
 }
 
 .numb-btn {
-    background-color: #B9BAC3;
+    background-color: #f3f3f3;
 }
 
 .first-row > div:active, .second-row > div:active, .third-row > div:active, .fourth-row > div:active, .fifth-row > div:active {
-    background: #979797;
+    transform: translateY(1px);
+    background: #e1e1e1;
+    transition: .1s ease-in-out all;
 }
+
+/* inside of the screen */
+
+#firstTerm, #operator, #secondTerm, #result, #current-data {font-family: 'Dosis', sans-serif;}
